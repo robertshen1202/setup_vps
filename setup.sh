@@ -3,7 +3,13 @@
 set -u
 
 # Set working directory to the script's location
-cd "$(dirname "$0")" || exit 1
+SCRIPT_DIR="$(dirname "$0")"
+cd "$SCRIPT_DIR" || exit 1
+
+# Load variables from .env (must be in same directory as setup.sh)
+set -o allexport
+source "$SCRIPT_DIR/.env"
+set +o allexport
 
 # redirect stdout & stderr to a log file
 mkdir -p ./logs
@@ -32,9 +38,10 @@ trap cleanup EXIT
 
 # Run setup scripts
 SCRIPTS=(
-#   "scripts/setup_packages.sh"
-#   "scripts/setup_docker.sh"
-  "./scripts/setup_ufw.sh"
+  # "scripts/setup_packages.sh"
+  # "scripts/setup_docker.sh"
+  # "./scripts/setup_ufw.sh"
+  "./scripts/setup_nginx.sh"
 )
 
 declare -A RESULTS

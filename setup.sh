@@ -40,7 +40,7 @@ trap cleanup EXIT
 SCRIPTS=(
   # "scripts/setup_packages.sh"
   # "scripts/setup_docker.sh"
-  # "./scripts/setup_ufw.sh"
+  "./scripts/setup_ufw.sh"
   "./scripts/setup_nginx.sh"
 )
 

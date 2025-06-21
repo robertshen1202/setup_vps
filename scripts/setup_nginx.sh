@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+echo "Setting up Nginx server"
+
 # Check if DOMAIN is set
 if [[ -z "${DOMAIN:-}" ]]; then
   echo "ERROR: DOMAIN is not set in .env"
@@ -16,7 +18,6 @@ fi
 
 NGINX_CONF="/etc/nginx/sites-available/$DOMAIN"
 
-echo "Setting up Nginx server"
 
 echo "Installing Nginx and Certbot"
 sudo apt-get update
@@ -40,7 +41,7 @@ server {
     
     location / {
         default_type text/plain;
-        return 200 'hello world! ';
+        return 200 'hello world';
     }
 }
 EOF

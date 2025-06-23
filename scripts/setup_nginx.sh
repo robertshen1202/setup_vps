@@ -36,9 +36,15 @@ server {
     ssl_certificate /etc/letsencrypt/live/$DOMAIN/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/$DOMAIN/privkey.pem;
     
-    location / {
+    # Root path → "Hello World" in plain text
+    location = / {
         default_type text/plain;
-        return 200 'hello world';
+        return 200 "Hello World";
+    }
+
+    # Catch-all: return 404 for everything else
+    location / {
+        return 404;
     }
 }
 EOF

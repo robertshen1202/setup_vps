@@ -3,18 +3,15 @@ set -euo pipefail
 
 echo "Setting up Nginx server"
 
-# Check if DOMAIN is set
-if [[ -z "${DOMAIN:-}" ]]; then
-  echo "ERROR: DOMAIN is not set in .env"
-  exit 1
-fi
+# List of environment variables to check
+ENV_VARS=("DOMAIN" "EMAIL")
 
-
-# Check if DOMAIN is set
-if [[ -z "${EMAIL:-}" ]]; then
-  echo "ERROR: DOMAIN is not set in .env"
-  exit 1
-fi
+for var_name in "${ENV_VARS[@]}"; do
+  if [[ -z "$var_name" ]]; then
+    echo "Environment variable '$var_name' is NOT set."
+    exit 1
+  fi
+done
 
 NGINX_CONF="/etc/nginx/sites-available/$DOMAIN"
 

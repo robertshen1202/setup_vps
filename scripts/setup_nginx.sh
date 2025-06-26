@@ -24,28 +24,33 @@ echo "Creating nginx config for $DOMAIN at $NGINX_CONF"
 
   sudo tee "$NGINX_CONF" > /dev/null <<EOF
 server {
-    listen 80;
-    server_name $DOMAIN;
-    return 301 https://\$host\$request_uri;
+  listen 80;
+  server_name $DOMAIN;
+  return 301 https://\$host\$request_uri;
 }
 
 server {
-    listen 443 ssl;
-    server_name $DOMAIN;
+  listen 443 ssl;
+  server_name $DOMAIN;
 
-    ssl_certificate /etc/letsencrypt/live/$DOMAIN/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/$DOMAIN/privkey.pem;
-    
-    # Root path → "Hello World" in plain text
-    location = / {
-        default_type text/plain;
-        return 200 "Hello World";
-    }
+  ssl_certificate /etc/letsencrypt/live/$DOMAIN/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/$DOMAIN/privkey.pem;
+  
+  # Root path → "Hello World" in plain text
+  location = / {
+    default_type text/plain;
+    return 200 "Hello World";
+  }
 
-    # Catch-all: return 404 for everything else
-    location / {
-        return 404;
-    }
+  # Search this line to add new location 
+
+
+  # This is the end, do not add new location after this line
+
+  # Catch-all: return 404 for everything else
+  location / {
+    return 404;
+  }
 }
 EOF
 
